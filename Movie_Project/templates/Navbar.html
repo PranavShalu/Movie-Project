@@ -1,0 +1,37 @@
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'Movie_App:home' %}"><h5 style="color:black;">Movies</h5></a>
+        </li>
+        <li class="nav-item dropdown {% if 'Movie_App' in request.path %} active {% endif %} ">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Category
+          </a>
+          <ul class="dropdown-menu">
+            {% for cat in links %}
+            <li><a class="dropdown-item" href="{{cat.get_url}}">{{cat.name}}</a></li>
+            {% endfor %}
+          </ul>
+          </li>
+      </ul>
+        <form method="GET" action="{% url 'Movie_App:search' %}" class="d-flex flex-row align-items-start justify-content-start">
+            <input class="form-control me-2" type="search" name="q" placeholder="Search movies..." aria-label="Search">
+            <button class="btn btn-outline-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </form>
+        <ul class="d-flex flex-row align-items-start justify-content-start" style="list-style:none;">
+            {% if user.is_authenticated%}
+                <li><a href="logout">Logout</a></li>
+                <li><b style="color:black;">{{user.username}}</b></li>
+            {% else %}
+                <li><a href="register">Register</a></li>
+                <li><a href="login">Login</a></li>
+            {% endif %}
+        </ul>
+    </div>
+  </div>
+</nav>

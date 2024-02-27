@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        {% for movie in movies %}
+        <div class="col-md-3">
+            <div class="card" style="width: 15rem;">
+                <img class="Card-image-top" src="{{movie.image.url}}" alt="..." height="300">
+                <div class="card-body">
+                    <h6 class="card-title">{{movie.name}}</h6>
+                    <a href="{% url 'Movie_App:detail' movie.id %}" class="btn btn-primary">View Details</a>
+                </div>
+            </div>
+            <br>
+        </div>
+        {% endfor %}
+    </div>
+    <br><a href="{% url 'Movie_App:add_movie' %}" class="btn btn-primary">Add Movie</a>
+</div>
+{% endblock %}
+

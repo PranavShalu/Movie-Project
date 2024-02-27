@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <h1>{{ movie.title }}</h1>
+  <div style="min-width:18rem">
+    <img src="{{movie.image.url}}" alt="{{movie.name}}" width="150" height="200">
+  </div>
+  <p>Genre: {{ movie.category }}</p>
+  <p>Release Date: {{ movie.release }}</p>
+  <p>Actors: {{ movie.actors }}</p>
+  <p>{{ movie.description }}</p>
+  <p>Rating: {{average_rating}}</p>
+  <p><a href="{{ movie.link }}" >Trailer Link</a></p>
+  <h4>Rate this movie</h4>
+  <form method="POST" action="{% url 'Movie_App:add_rating' movie.id %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Rate</button>
+  </form>
+  {% if user == movie.user %}
+    <a href="{% url 'Movie_App:edit_movie' movie.id %}">Edit</a>
+  {% endif %}
+{% endblock %}
